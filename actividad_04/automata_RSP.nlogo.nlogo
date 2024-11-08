@@ -17,8 +17,8 @@ end
 to go
 foreach sort patches [ the-patch -> ask the-patch
     [
-    pierdo?
-  ]
+    contar_vecinos
+    ]
   ]
   tick
   ask patches [
@@ -26,24 +26,24 @@ foreach sort patches [ the-patch -> ask the-patch
   ]
 end
 
-to pierdo?
+to contar_vecinos
   let azul count neighbors with [ pcolor = blue ]
   let rojo count neighbors with [ pcolor = red ]
   let amarillo count neighbors with [ pcolor = yellow ]
   (ifelse
-    pcolor = red and azul > Tol_azul [ set color_futuro blue]
-  pcolor = blue and azul > Tol_amarilla [ set color_futuro yellow]
-  pcolor = yellow and azul > Tol_roja [ set color_futuro red ])
+    pcolor = red and azul >= Tol_azul [ set color_futuro blue]
+    pcolor = blue and amarillo >= Tol_amarilla [ set color_futuro yellow]   ;; aquí te faltó cambiar la variable azul por amarillo
+    pcolor = yellow and rojo >= Tol_roja [ set color_futuro red ])      ;; aquí te faltó cambiar la variable azul por rojo
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
 10
-647
-448
+645
+446
 -1
 -1
-13.0
+7.0
 1
 10
 1
@@ -53,12 +53,12 @@ GRAPHICS-WINDOW
 1
 1
 1
--16
-16
--16
-16
-0
-0
+-30
+30
+-30
+30
+1
+1
 1
 ticks
 30.0
@@ -72,7 +72,7 @@ Tol_roja
 Tol_roja
 0
 8
-4.0
+3.0
 1
 1
 NIL
@@ -102,7 +102,7 @@ Tol_amarilla
 Tol_amarilla
 0
 8
-6.0
+3.0
 1
 1
 NIL
